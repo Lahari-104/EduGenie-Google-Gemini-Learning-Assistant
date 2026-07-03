@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="EduGenie — a Google Gemini powered learning assistant for question answering, explanations, quizzes, summaries, and personalized study paths." />
+  <title>EduGenie · Gemini Powered Learning Assistant</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <!-- Ambient background glow layers -->
+  <div class="bg-orbs" aria-hidden="true">
+    <span class="orb orb--1"></span>
+    <span class="orb orb--2"></span>
+    <span class="orb orb--3"></span>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="hero">
+    <div class="hero__inner">
+      <div class="brand">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 2.5l2.9 8.1a4 4 0 0 0 2.5 2.5l8.1 2.9-8.1 2.9a4 4 0 0 0-2.5 2.5L16 29.5l-2.9-8.1a4 4 0 0 0-2.5-2.5L2.5 16l8.1-2.9a4 4 0 0 0 2.5-2.5L16 2.5z" fill="url(#sparkGrad)"/>
+            <circle cx="26" cy="6" r="2" fill="#93c5fd"/>
+            <circle cx="6" cy="25" r="1.5" fill="#bfdbfe"/>
+            <defs>
+              <linearGradient id="sparkGrad" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#ffffff"/>
+                <stop offset="1" stop-color="#93c5fd"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+        <span class="brand__name">EduGenie</span>
+      </div>
+
+      <h1 class="hero__title">Ask anything. Learn faster.</h1>
+      <p class="hero__subtitle">
+        A Google&nbsp;Gemini powered study companion — answers, explanations,
+        quizzes, summaries, and a learning path built around what you want to master.
+      </p>
+
+      <ul class="hero__tags" aria-hidden="true">
+        <li>Question answering</li>
+        <li>Concept explanation</li>
+        <li>Quiz generator</li>
+        <li>Summaries</li>
+        <li>Learning paths</li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ============ MAIN ============ -->
+  <main class="grid" id="app">
+
+    <!-- 1. QUESTION ANSWERING -->
+    <section class="card" id="qa" style="--delay: 0ms">
+      <div class="card__head">
+        <span class="card__icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12" y2="17"/>
+          </svg>
+        </span>
+        <div>
+          <h2 class="card__title">Question answering</h2>
+          <p class="card__desc">Ask a direct question and get a clear, accurate answer.</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="qa-input">Your question</label>
+        <textarea id="qa-input" class="field__input" rows="2" placeholder="e.g. What is the difference between TCP and UDP?"></textarea>
+      </div>
+
+      <button class="btn" data-action="qa">
+        <span class="btn__label">Get answer</span>
+      </button>
+
+      <div class="loader" id="qa-loader" hidden>
+        <span class="spinner"></span> Thinking…
+      </div>
+
+      <div class="output" id="qa-output" hidden></div>
+    </section>
+
+    <!-- 2. CONCEPT EXPLANATION -->
+    <section class="card" id="explain" style="--delay: 80ms">
+      <div class="card__head">
+        <span class="card__icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/>
+          </svg>
+        </span>
+        <div>
+          <h2 class="card__title">Concept explanation</h2>
+          <p class="card__desc">Break a topic down into a beginner-friendly explanation.</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="explain-input">Topic</label>
+        <textarea id="explain-input" class="field__input" rows="2" placeholder="e.g. Recursion in programming"></textarea>
+      </div>
+
+      <button class="btn" data-action="explain">
+        <span class="btn__label">Explain topic</span>
+      </button>
+
+      <div class="loader" id="explain-loader" hidden>
+        <span class="spinner"></span> Explaining…
+      </div>
+
+      <div class="output" id="explain-output" hidden></div>
+    </section>
+
+    <!-- 3. QUIZ GENERATOR -->
+    <section class="card card--wide" id="quiz" style="--delay: 160ms">
+      <div class="card__head">
+        <span class="card__icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/>
+          </svg>
+        </span>
+        <div>
+          <h2 class="card__title">Quiz generator</h2>
+          <p class="card__desc">Generate 3 multiple-choice questions and test yourself.</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="quiz-input">Topic</label>
+        <textarea id="quiz-input" class="field__input" rows="2" placeholder="e.g. The water cycle"></textarea>
+      </div>
+
+      <button class="btn" data-action="quiz">
+        <span class="btn__label">Generate quiz</span>
+      </button>
+
+      <div class="loader" id="quiz-loader" hidden>
+        <span class="spinner"></span> Building your quiz…
+      </div>
+
+      <div class="output" id="quiz-output" hidden></div>
+    </section>
+
+    <!-- 4. TEXT SUMMARIZER -->
+    <section class="card card--wide" id="summarize" style="--delay: 240ms">
+      <div class="card__head">
+        <span class="card__icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="13" y2="18"/>
+          </svg>
+        </span>
+        <div>
+          <h2 class="card__title">Text summarizer</h2>
+          <p class="card__desc">Paste long study material and get the key points.</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="summarize-input">Text to summarize</label>
+        <textarea id="summarize-input" class="field__input field__input--tall" rows="7" placeholder="Paste an article, notes, or a chapter here…"></textarea>
+      </div>
+
+      <button class="btn" data-action="summarize">
+        <span class="btn__label">Summarize text</span>
+      </button>
+
+      <div class="loader" id="summarize-loader" hidden>
+        <span class="spinner"></span> Condensing…
+      </div>
+
+      <div class="output" id="summarize-output" hidden></div>
+    </section>
+
+    <!-- 5. LEARNING RECOMMENDATIONS -->
+    <section class="card card--wide" id="learn" style="--delay: 320ms">
+      <div class="card__head">
+        <span class="card__icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 7l10-4 10 4-10 4L2 7z"/><path d="M6 9v5c0 1.7 2.7 3 6 3s6-1.3 6-3V9"/><line x1="22" y1="7" x2="22" y2="13"/>
+          </svg>
+        </span>
+        <div>
+          <h2 class="card__title">Learning recommendations</h2>
+          <p class="card__desc">Get a beginner → advanced roadmap with resources.</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="learn-input">What do you want to learn?</label>
+        <textarea id="learn-input" class="field__input" rows="2" placeholder="e.g. Machine learning"></textarea>
+      </div>
+
+      <button class="btn" data-action="learn">
+        <span class="btn__label">Get recommendations</span>
+      </button>
+
+      <div class="loader" id="learn-loader" hidden>
+        <span class="spinner"></span> Mapping your path…
+      </div>
+
+      <div class="output" id="learn-output" hidden></div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>EduGenie · Built with FastAPI and Google Gemini</p>
+  </footer>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
